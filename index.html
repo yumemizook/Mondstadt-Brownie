@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mondstadt Brownie</title>
+    <title>Prownie IR</title>
     <link rel="stylesheet" href="./styles/home.css" />
     <link rel="stylesheet" href="./styles/navbar.css" />
     <link rel="shortcut icon" type="image/x-icon" href="./img/brownie.ico" />
@@ -12,24 +12,14 @@
   <body>
     <script>
       $.get("navbar.html", function (data) {
-        $("#nav").replaceWith(data);
+        $("#navbar").replaceWith(data);
       });
-      $.get("footer.html", function (data) {
+      $.get("/footer.html", function (data) {
         $(".footer").replaceWith(data);
       });
     </script>
-    <div id="nav"></div>
-    <div class="intro">
-      <div class="video-container">
-        <video autoplay muted loop id="myVideo">
-          <source src="./img/demo.mp4" type="video/mp4" />
-        </video>
-        <div class="intro-text">
-          <h1>Mondstadt Brownie</h1>
-          <h3>Simple Pump It Up chart viewer and score tracker.</h3>
-        </div>
-      </div>
-    </div>
+    <div id="navbar"></div>
+    <div class="intro"></div>
     <div class="brownie">
       Welcome! This website is created as a simple portal for Pump It Up chart
       viewing. <br />
@@ -46,9 +36,10 @@
       project.
       <br />
       <br />
-      <h1>Charts available: Not 6</h1>
     </div>
 
- <div class="footer"></div>
+    <div class="footer"></div>
+    <script type="module" src="./torture/firebase.js"></script>
+    <script type="module" src="./torture/navbar.js"></script>
   </body>
 </html>

@@ -22,7 +22,7 @@ body {
   margin-top: 100px;
   display: flex;
   border-radius: 10px;
-  background-color: rgb(71, 52, 47);
+  background-color: rgb(47, 61, 71);
   padding-left: 10px;
   padding-bottom: 10px;
 }
@@ -116,7 +116,7 @@ body {
 }
 
 .footer-item a:hover {
-  background-color: rgb(255, 150, 150);
+  background-color: rgb(150, 223, 255);
 }
 
 .profile {
@@ -134,8 +134,8 @@ body {
 }
 
 .plays {
-  display: flex;
-  justify-content: space-between;
+display: grid;
+grid-template-columns: 1fr 1fr;
 }
 .play-table {
   margin-top: 50px;
@@ -149,13 +149,13 @@ body {
 
 .play-table th {
   padding: 10px;
-  background-color: rgb(71, 52, 47);
+  background-color: rgb(72, 92, 103);
   color: white;
 }
 
 .play-table td {
   padding: 10px;
-  background-color: rgb(71, 52, 47);
+  background-color: rgb(72, 92, 103);
   color: white;
 }
 
@@ -186,7 +186,7 @@ iframe {
 .diff button {
   padding: 10px;
   margin: 10px;
-  background-color: rgb(71, 52, 47);
+  background-color: rgb(72, 92, 103);
   color: white;
   border-radius: 40%;
   cursor: pointer;
@@ -229,21 +229,21 @@ iframe {
   display: none;
 }
 .buttons input {
-  background-color: rgb(71, 52, 47);
+  background-color: rgb(72, 92, 103);
   color: white;
   padding: 10px;
   margin: 10px;
   cursor: pointer;
 }
 .profilesettings {
-  background-color: rgb(71, 52, 47);
+  background-color: rgb(72, 92, 103);
   padding: 10px;
   color: white;
   text-decoration: none;
 }
 
 .profilesettings:hover {
-  background-color: rgb(255, 150, 150);
+  background-color: rgb(150, 223, 255);
 }
 
 .avatar img {
@@ -291,9 +291,9 @@ input[type="file"] {
 input{
   padding: 10px;
   margin: 5px;
-  border: 1px solid #8a571d80;
+  border: 1px solid #1d678a80;
   border-radius: 4px;
-  background-color: #383030;
+  background-color: #303438;
   color: #fff;
 }
 

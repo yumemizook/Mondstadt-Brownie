@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How do I hide this webpage</title>
     <link rel="stylesheet" href="/styles/navbar.css" />
+    <script
+      src="https://kit.fontawesome.com/7263e3a28f.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
@@ -17,54 +21,36 @@
           </a>
         </div>
         <div class="dropdown">
-          <a id="outline" href="/play/songlist.html">Main Songs</a>
-          <div class="dropdown-content">
-            <div class="item">
-              <a href="/play/fiesta/fiestasonglist.html">Fiesta - Fiesta 2</a>
-            </div>
-            <div class="item"><a href="">Rave It Out</a></div>
-            <div class="item"><a href="">Rave It Out 2</a></div>
-          </div>
+          <a class="outline" href="/play/songlist.html">Main Songs</a>
         </div>
         <div class="dropdown">
-          <a id="outline" href="/comingsoon.html">Mission Zone</a>
-          <div class="dropdown-content">
-            <div class="item"><a href="">NX Absolute</a></div>
-            <div class="item"><a href="">Rave It Out</a></div>
-            <div class="item"><a href="">Rave It Out 2</a></div>
-          </div>
+          <a class="outline" href="/scoretracker.html">Score Tracker</a>
         </div>
         <div class="dropdown">
-          <a id="outline" href="/scoretracker.html">Score Tracker</a>
-        </div>
-        <div class="dropdown">
-          <a id="outline" href="/comingsoon.html">Wiki</a>
-          <div class="dropdown-content">
-            <div class="item"><a href="">How to Play</a></div>
-            <div class="item"><a href="">Full Mode</a></div>
-            <div class="item"><a href="">Scoring and PUMBILITY</a></div>
-            <div class="item"><a href="">Terminology</a></div>
-            <div class="item"><a href="">Tips and Tricks</a></div>
-          </div>
+          <a class="outline" href="/comingsoon.html">Wiki</a>
         </div>
 
         <div class="account">
-          <a id="search" href="/search.html">Search</a>
+          <!-- <a id="search" href="/search.html">Search</a> -->
           <a id="logger" href="/login.html">Login</a>
           <div class="dropdown">
-          <a id="avatar" href="/profile.html">
-            <img src="" alt="" id="avatardisp" />
-          </a>
+            <a id="avatar" href="/profile.html">
+              <img src="" alt="" id="avatardisp" />
+            </a>
 
-          <div class="dropdown-content" style="margin-top: -7px; margin-left: -240px; text-align: center;">
-            <div class="item" id="name"></div>
-            <div class="item" id="pb"></div>
+            <div
+              class="dropdown-content"
+              style="margin-top: -7px; margin-left: -240px; text-align: center"
+            >
+              <div class="item" id="name"></div>
+              <div class="item" id="pb"></div>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
 
-    <script src="/torture/navbar.js"></script>
+    <script type="module" src="/torture/navbar.js"></script>
+    <script type="module" src="./torture/firebase.js"></script>
   </body>
 </html>
