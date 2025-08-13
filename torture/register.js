@@ -6,7 +6,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "./firebase.js";
-import { db, addDoc, collection } from "./firebase.js";
+import { db, addDoc, collection, setDoc, doc } from "./firebase.js";
 const auth = getAuth();
 
 let lowerCaseLetters = /[a-z]/g;
@@ -149,12 +149,24 @@ async function validatePasswords() {
   else {
     let user;
     try {
+      await setDoc(doc(db, "users", username), {
+        username: username,
+        email: email,
+        profilePicture: profilePicture,
+        timeCreated: new Date().toISOString(),
+        pumpbility: 0,
+        role: "user",
+      });
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
-      );
+      ); 
       user = userCredential.user;
+      await updateProfile(user, {
+        displayName: username,
+        photoURL: profilePicture,
+      });
       console.log("User created:", user);
     } catch (error) {
       const errorCode = error.code;
@@ -177,19 +189,6 @@ async function validatePasswords() {
       }
       return; // Stop further execution if error occurs
     }
-    await updateProfile(user, {
-      displayName: username,
-      photoURL: profilePicture,
-    });
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      username: username,
-      email: email,
-      profilePicture: profilePicture,
-      timeCreated: new Date().toISOString(),
-      pumpbility: 0, // Initialize pumpbility to 0
-      role: "user", // Default role
-    });
     alert("Account created successfully! Redirecting to sign in page...");
     window.location.href = "login.html";
   }
