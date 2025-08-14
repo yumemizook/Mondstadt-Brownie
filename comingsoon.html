@@ -12,14 +12,13 @@
   <body>
     <script>
       $.get("navbar.html", function (data) {
-        $("#nav").replaceWith(data);
+        $("#navbar").replaceWith(data);
       });
       $.get("footer.html", function (data) {
         $(".footer").replaceWith(data);
       });
     </script>
-<body>
-    <div id="nav"></div>
+    <div id="navbar"></div>
     <div class="comingsoon" style="margin-top: 80px; text-align: center;">
         <h1>This feature will be available soon!</h1>
         <h2>Please check back at a later time. Maybe a day, or a month, or never ;3</h2>
@@ -27,4 +26,5 @@
     </div>
     <div class="footer"></div>
 </body>
+<script type="module" src="./torture/navbar.js"></script>
 </html>

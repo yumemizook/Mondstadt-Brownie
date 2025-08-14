@@ -1,6 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js';
 import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile, updatePassword, updateEmail } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-  import {getFirestore, addDoc, collection, getDocs, setDoc, doc} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import {getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+import { getFirestore, addDoc, collection, getDocs, setDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAwq4ttDc1e3Q8ohL8US_PxpCIu8IyGPV0",
@@ -12,8 +13,8 @@ const firebaseConfig = {
   measurementId: "G-V2S8YLWHH3"
 };
 const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+const db = getFirestore(app);
 
-export { app, getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getFirestore, db, addDoc, collection, updateProfile, getDocs, updatePassword, updateEmail, setDoc, doc };
+export { app, getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getFirestore, db, addDoc, collection, updateProfile, getDocs, updatePassword, updateEmail, setDoc, doc, getStorage, ref, uploadBytes, getDownloadURL, getDoc };
 export default app;
 export { firebaseConfig };

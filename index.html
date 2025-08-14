@@ -21,11 +21,7 @@
     <div id="navbar"></div>
     <div class="intro"></div>
     <div class="brownie">
-      Welcome! This website is created as a simple portal for Pump It Up chart
-      viewing. <br />
-      The site also includes a simple socre tracker to keep track of your
-      scores. <br />
-
+      Welcome! This website is created for the purpose of an IR site for home Pump players.
       <br />
       Currently, the site is still <strong>UNDER HEAVY DEVELOPMENT</strong>
       <br />
@@ -34,6 +30,7 @@
       issues as you see. <br />
       Also, please be patient as there is only one person working on this
       project.
+      <h6>god i really should stop procastinating due is in 2 weeks-</h6>
       <br />
       <br />
     </div>
@@ -41,5 +38,36 @@
     <div class="footer"></div>
     <script type="module" src="./torture/firebase.js"></script>
     <script type="module" src="./torture/navbar.js"></script>
+    <script type="module">
+      import { getFirestore, addDoc, collection, getDocs, setDoc, doc, getDoc, db, getAuth } from "./torture/firebase.js"; // last resort method to write users to firestore. fuck.
+      const auth = getAuth();
+
+      // Wait for auth state to be ready and user to be defined
+      auth.onAuthStateChanged(async (user) => {
+        if (!user) {
+          console.warn("No user is currently signed in.");
+          return;
+        }
+        // Force use uid
+        const userKey = user.uid;
+        const userDocRef = doc(db, "users", userKey);
+        let userDoc;
+        try {
+          userDoc = await getDoc(userDocRef);
+          if (!userDoc.exists()) {
+            await setDoc(userDocRef, {
+              username: user.displayName || "",
+              email: user.email || "",
+              profilePicture: user.photoURL || "/img/default-avatar.png",
+              timeCreated: new Date().toISOString(),
+              pumpbility: 0,
+              role: "user",
+            });
+          }
+        } catch (firestoreReadError) {
+          console.error("Failed to read from Firestore:", firestoreReadError);
+        }
+      });
+    </script>
   </body>
 </html>

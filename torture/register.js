@@ -6,7 +6,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "./firebase.js";
-import { db, addDoc, collection, setDoc, doc } from "./firebase.js";
+import { db, addDoc, collection, setDoc, doc, getDoc } from "./firebase.js";
 const auth = getAuth();
 
 let lowerCaseLetters = /[a-z]/g;
@@ -149,19 +149,11 @@ async function validatePasswords() {
   else {
     let user;
     try {
-      await setDoc(doc(db, "users", username), {
-        username: username,
-        email: email,
-        profilePicture: profilePicture,
-        timeCreated: new Date().toISOString(),
-        pumpbility: 0,
-        role: "user",
-      });
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
-      ); 
+      );
       user = userCredential.user;
       await updateProfile(user, {
         displayName: username,
@@ -200,7 +192,6 @@ googleButton.addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
-    const credential = GoogleAuthProvider.credentialFromResult(result);
     console.log("User signed in with Google:", user);
     window.location.href = "index.html";
   } catch (error) {
