@@ -59,9 +59,10 @@
               username: user.displayName || "",
               email: user.email || "",
               profilePicture: user.photoURL || "/img/default-avatar.png",
-              timeCreated: new Date().toISOString(),
+              timeCreated: new Date().getTime(),
               pumpbility: 0,
               role: "user",
+              lastNameChange: new Date().getTime(),
             });
           }
         } catch (firestoreReadError) {

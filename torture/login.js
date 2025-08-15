@@ -1,12 +1,14 @@
 import {
-    getAuth,
-    signInWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithPopup,
-    onAuthStateChanged
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
 } from "./firebase.js";
 
 const auth = getAuth();
+const email = document.getElementById("email").value;
+const password = document.getElementById("pw").value;
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -15,28 +17,44 @@ onAuthStateChanged(auth, (user) => {
 });
 
 let form = document.querySelector("form");
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  if (!localStorage.getItem("users")) {
-    alert("No user found");
-  } else {
-    let users = JSON.parse(localStorage.getItem("users"));
+  // Get the latest values from the input fields
+  const emailInput = document.getElementById("email").value.trim();
+  const passwordInput = document.getElementById("pw").value;
 
-    let username = document.getElementById("username");
-    let password = document.getElementById("pw");
+  if (!emailInput || !passwordInput) {
+    alert("Please enter both email and password.");
+    return;
+  }
 
-    let existingUser = users.find(
-      (index) =>
-        index.username === username.value.trim() &&
-        index.password === password.value.trim()
-    );
-
-    if (existingUser) {
-      localStorage.setItem("currentUser", JSON.stringify(existingUser));
-      location.href = "./index.html";
-    } else {
-      alert("Email or password is incorrect");
+  try {
+    await signInWithEmailAndPassword(auth, emailInput, passwordInput);
+    // If successful, onAuthStateChanged will redirect
+  } catch (error) {
+    switch (error.code) {
+      case "auth/invalid-credential":
+      case "auth/wrong-password":
+      case "auth/invalid-email":
+        alert("Invalid email or password! Please try again.");
+        break;
+      case "auth/user-not-found":
+        alert("User not found! Please create an account.");
+        break;
+      case "auth/too-many-requests":
+        alert("Too many failed attempts. You have been timed out.");
+        break;
+      case "auth/network-request-failed":
+        alert("Network error. Please check your connection and try again.");
+        break;
+      case "auth/internal-error":
+        alert("Internal error. Please try again later");
+        break;
+      default:
+        alert("An error occurred! Contact the sysop of the page.");
+        console.error("Error signing in:", error);
+        break;
     }
   }
 });

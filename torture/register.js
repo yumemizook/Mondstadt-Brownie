@@ -155,10 +155,12 @@ async function validatePasswords() {
         password
       );
       user = userCredential.user;
-      await updateProfile(user, {
+      onAuthStateChanged(auth, async (user) => {
+      await updateProfile(auth.currentUser, {
         displayName: username,
         photoURL: profilePicture,
       });
+    });
       console.log("User created:", user);
     } catch (error) {
       const errorCode = error.code;
@@ -181,8 +183,8 @@ async function validatePasswords() {
       }
       return; // Stop further execution if error occurs
     }
-    alert("Account created successfully! Redirecting to sign in page...");
-    window.location.href = "login.html";
+    alert("Account created successfully! Redirecting to home...");
+    window.location.href = "index.html";
   }
 }
 
