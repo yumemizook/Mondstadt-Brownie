@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged, getDoc, doc, db } from "./firebase.js";
+import { getAuth, onAuthStateChanged, getDoc, doc, db, updateDoc } from "./firebase.js";
 
 const playerName = document.querySelector("[playername]");
 const playerAvatar = document.querySelector("#playerpfp");
@@ -32,17 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
                             scores.push(doc.data());
                         });
 
-                        // Best Plays: top 10 by pumpbility
+                        // Best Plays: top 30 by pumpbility
                         const bestPlays = scores
                             .filter(play => typeof play.pumpbility === "number")
                             .sort((a, b) => (b.pumpbility || 0) - (a.pumpbility || 0))
-                            .slice(0, 10);
+                            .slice(0, 30);
 
-                        // Recent Plays: top 10 by timestamp (descending)
+                        const pumpbilityTotal = bestPlays.reduce((acc, play) => acc + (play.pumpbility || 0), 0);
+                        pumpbility.innerHTML = `PUMBILITY: ${pumpbilityTotal}`;
+                        await updateDoc(userDocRef, {
+                            pumpbility: pumpbilityTotal
+                        });
+
+                        // Recent Plays: top 30 by timestamp (descending)
                         const recentPlays = scores
                             .filter(play => typeof play.timestamp === "number")
                             .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
-                            .slice(0, 10);
+                            .slice(0, 30);
 
                         // Find the tables
                         const bestPlaysTable = document.querySelector(".bp .play-table");
@@ -54,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 `<tr>
                                     <td><a style="text-decoration: none; color: white;" href="/score.html?sn=${play.sn}&lvl=${play.lvl}">${play.sn || ""}</a></td>
                                     <td>${play.lvl || ""}</td>
-                                    <td>${play.score || ""}</td>
+                                    <td>${play.score === 1000000 ? `1000000 <span style="color:rgb(174, 255, 248); font-size: 0.6em;">(MAX-${Number(play.fa) + Number(play.sl)})</span>` : play.score || ""}</td>
                                     <td>${play.grade || ""}</td>
                                     <td>${play.cleartype || ""}</td>
                                     <td>${play.pumpbility || ""}</td>
@@ -63,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             ).join("");
 
                         }
+                        console.log(bestPlays);
                         // Render Best Plays
                         if (bestPlaysTable) {
                             bestPlaysTable.innerHTML = `

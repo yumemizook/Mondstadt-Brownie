@@ -324,16 +324,10 @@ async function uploadScore() {
     const userKey = user.uid;
     const userDocRef = doc(db, "users", userKey);
 
-    // Update pumpbility field by incrementing with the new score's pumpbility
-    await updateDoc(userDocRef, {
-      pumpbility: (typeof pumpbility === "number" ? pumpbility : 0)
-    });
-
     // Add the score to the user's scores subcollection
     await addDoc(collection(db, "users", userKey, "scores"), scoreObj);
-
     alert("Score uploaded successfully");
-    window.location.reload();
+    window.location.href = `/score.html?sn=${sn}&lvl=${lvl}`;
   } catch (error) {
     console.error("Error uploading score:", error);
     alert("Error uploading score. Please try again.");
