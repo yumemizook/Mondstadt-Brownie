@@ -7,9 +7,6 @@ import {
 } from "./firebase.js";
 
 const auth = getAuth();
-const email = document.getElementById("email").value;
-const password = document.getElementById("pw").value;
-
 onAuthStateChanged(auth, (user) => {
   if (user) {
     window.location.href = "./index.html";
@@ -28,15 +25,12 @@ form.addEventListener("submit", async (e) => {
     alert("Please enter both email and password.");
     return;
   }
-
   try {
     await signInWithEmailAndPassword(auth, emailInput, passwordInput);
     // If successful, onAuthStateChanged will redirect
   } catch (error) {
     switch (error.code) {
       case "auth/invalid-credential":
-      case "auth/wrong-password":
-      case "auth/invalid-email":
         alert("Invalid email or password! Please try again.");
         break;
       case "auth/user-not-found":
@@ -55,6 +49,34 @@ form.addEventListener("submit", async (e) => {
         alert("An error occurred! Contact the sysop of the page.");
         console.error("Error signing in:", error);
         break;
+    }
+  }
+});
+const googleButton = document.getElementById("googlelog");
+googleButton.addEventListener("click", async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    console.log("User signed in with Google:", user);
+    window.location.href = "index.html";
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    switch (errorCode) {
+      case "auth/popup-closed-by-user":
+        alert(
+          "Popup closed by user. Please avoid closing the popup during sign-in."
+        );
+        break;
+      case "auth/cancelled-popup-request":
+        alert("Popup request cancelled. Please try again.");
+        break;
+      default:
+        console.error("Error signing in with Google:", errorCode, errorMessage);
+        alert(
+          "An error occurred while signing in with Google. Please try again."
+        );
     }
   }
 });

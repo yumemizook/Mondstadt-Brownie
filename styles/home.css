@@ -136,6 +136,7 @@ body {
 .plays {
 display: grid;
 grid-template-columns: 1fr 1fr;
+gap: 15px;
 }
 .play-table {
   margin-top: 50px;
@@ -144,7 +145,6 @@ grid-template-columns: 1fr 1fr;
   align-items: left;
   flex-direction: column;
   border: 1px solid white;
-  width: 75vh;
 }
 
 .play-table th {
@@ -207,17 +207,6 @@ iframe {
 .cover {
   display: flex;
   justify-content: space-evenly;
-}
-
-.chartslist {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 50px;
-}
-
-.chartslist img {
-  width: 400px;
-  margin: 20px;
 }
 
 .footer i {
@@ -299,4 +288,17 @@ input{
 
 button{
   cursor: pointer;
+}
+.scorecontainer{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+select{
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #1d678a80;
+  border-radius: 4px;
+  background-color: #303438;
+  color: #fff;
 }
